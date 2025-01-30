@@ -5,7 +5,6 @@
 #	
 #	Purpose:    Make random diffussion structure
 #******************************************************************************************
-
 #import libraries
 import numpy as np
 import random as ran
@@ -34,29 +33,36 @@ def SumNeighbors(arr, row, col):
     return round(total)
 
 #Create a array to represent a 2D space with a stationary particle at the center
-xMax=22
+xMax=750
 yMax=xMax
 crystal = np.array([xMax+1,yMax+1])
 crystal = np.zeros([xMax+1,yMax+1])
-crystal[round(xMax/2),round(yMax/2)]=1
-Size = 50
+XCenter=round(xMax/2)
+YCenter=round(yMax/2)
+crystal[XCenter,YCenter]=1
+Size = 10000
 N=1
-
+MaxArm = 0
 
 while N < Size:
     #Randomly create a particle on ring
-    CreateionRadius = xMax/2
+    CreationRadius = 10 + MaxArm
+    DeathRadius= CreationRadius + 10
+    #print("Creation Rad: ",CreationRadius)
     CreationAngle = ran.uniform(0,2*math.pi)
-    x = round(xMax/2)+round(CreateionRadius*math.cos(CreationAngle))
-    y = round(yMax/2)+round(CreateionRadius*math.sin(CreationAngle))
+    x = XCenter+round(CreationRadius*math.cos(CreationAngle))
+    y = YCenter+round(CreationRadius*math.sin(CreationAngle))
+    #print("X: ",x-XCenter,"Y: ",y-YCenter)
     if crystal[x,y] == 1:
         attached = True
     else:
         crystal[x,y] = 1
-        attached = False
+    attached = False
+    Distance = ((x-XCenter)**2 + (y-YCenter)**2)**(1/2)
 
     #ensure particle is in bounds
-    while 0<=x<xMax+1 and 0<=y<yMax+1 and not attached:
+    while Distance < DeathRadius and not attached:
+        Distance = ((x-XCenter)**2 + (y-YCenter)**2)**(1/2)
         #find sum of surrounding spaces 
         AdjSum = SumNeighbors(crystal, x, y) #crystal[x+1,y]+crystal[x-1,y]+crystal[x,y+1]+crystal[x,y-1]
         if AdjSum == 0:
@@ -97,8 +103,12 @@ while N < Size:
             N = N+1
             #print("connect")
             attached = True
-
-print(N)
-print(crystal)
-plt.matshow(crystal)
-
+            ArmLength = round(((x-XCenter)**2 + (y-YCenter)**2)**(1/2))
+            #print(ArmLength)
+            if ArmLength > MaxArm:
+                MaxArm = ArmLength
+                #print("new length: ", MaxArm)
+    if Distance >= DeathRadius:
+        #print("Particle dead")
+        #print("X: ",x-XCenter,"Y: ",y-YCenter)
+        crystal[x,y]=0
