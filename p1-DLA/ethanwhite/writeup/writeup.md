@@ -12,8 +12,15 @@ My program uses an iterative creation-circle to spawn new particles surrounding 
 5. Once stuck, its distance from the middle is measured. The maximum distance away from the origin is incremented if needed as well, and if it is, then the spawning radius is incremented by that amount as well.
 6. The Hausdorff dimension is calculated from the number of particles and maximum distance. A picture is drawn.
 
-[!NOTE] I think I severely underestimated the time it would take to finish this project and will not make that mistake on any more projects. I also had a lot of problems with my program, which eventually ended with me re-writing my entire program in one weekend (which was obviously not ideal). Due to time constraints and poor time management, I did not end up implementing a stickiness factor. If I had implemented a stickiness factor, I could have gone into much more detail on fractal dimensionality. The architecture of the nested while and for loops was the most time consuming part of the code, as well as just generally tweaking small errors that kept piling up.
-[!NOTE] I also was not able to implement the stickiness factor. I know exactly how I would program it, but I did not have the time management organized enough to do so. :( 
+<figure>
+  <img src=pictures/50000particles.png>
+  <figcaption>Largest aggregate made, taking 1.5 hours to compute 50,000 particles. No stickiness factor.</figcaption>
+</figure>
+<p>&nbsp;</p> 
+
+> [!NOTE] I think I severely underestimated the time it would take to finish this project and will not make that mistake on any more projects. I also had a lot of problems with my program, which eventually ended with me re-writing my entire program in one weekend (which was obviously not ideal). Due to time constraints and poor time management, I did not end up implementing a stickiness factor. If I had implemented a stickiness factor, I could have gone into much more detail on fractal dimensionality. The architecture of the nested while and for loops was the most time consuming part of the code, as well as just generally tweaking small errors that kept piling up.
+
+> [!NOTE] I also was not able to implement the stickiness factor. I know exactly how I would program it, but I did not have the time management organized enough to do so. :( 
 
 ### Specific Questions:
 
